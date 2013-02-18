@@ -1,3 +1,4 @@
+<?php require_once 'data.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
  
@@ -122,6 +123,7 @@
         <h2>With specific column</h2>
 
         <form method="post" action="index.php">
+
         <table>
             <thead>
                 <tr>
@@ -185,11 +187,101 @@
             </tbody>
         </table>
 
+        <p><input type="button" name="submit" value="Submit" /></p>
+
+        </form>
 
         <h2>With Ajax</h2>
 
+        <form method="post" action="index.php">
+
+        <table>
+            <thead>
+                <tr>
+                    <td><input type="checkbox" name="demandes[]" value="all" /></td>
+                    <td>Logiciel</td>
+                    <td>Version</td>
+                    <td>Demandeur</td>
+                    <td>Ufr</td>
+                    <td class="date">Date</td>
+                </tr>
+            </thead>
+            <tbody>
+      <?php 
+          foreach ($dataArray as $key => $data) {
+              echo '<tr>';
+              echo '<td><input type="checkbox" name="demandes[]" value="'.$key.'" /></td>';
+              echo '<td>'.$data[0].'</td>';
+              echo '<td>'.$data[1].'</td>';
+              echo '<td>'.$data[2].'</td>';
+              echo '<td>'.$data[3].'</td>';
+              echo '<td>'.$data[4].'</td>';
+              echo '</tr>';
+          }
+      ?>
+
+            </tbody>
+        </table>
+
+        <p><input type="button" name="submit" value="Submit" /></p>
+
+        </form>
         
         <h2>With pagination</h2>
+
+        <form method="post" action="index.php">
+
+        <table>
+            <thead>
+                <tr>
+                    <td><input type="checkbox" name="demandes[]" value="all" /></td>
+                    <td>Logiciel</td>
+                    <td>Version</td>
+                    <td>Demandeur</td>
+                    <td>Ufr</td>
+                    <td class="date">Date</td>
+                </tr>
+            </thead>
+            <tbody>
+      <?php
+
+          $offset    = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
+          $limit     = 20;
+          $slicedArray = array_slice($dataArray, $offset, $limit);
+
+          foreach ($slicedArray as $key => $data) {
+
+              echo '<tr>';
+              echo '<td><input type="checkbox" name="demandes[]" value="'.$key.'" /></td>';
+              echo '<td>'.$data[0].'</td>';
+              echo '<td>'.$data[1].'</td>';
+              echo '<td>'.$data[2].'</td>';
+              echo '<td>'.$data[3].'</td>';
+              echo '<td>'.$data[4].'</td>';
+              echo '</tr>';
+          }
+      ?>
+
+            </tbody>
+        </table>
+
+      <?php
+
+          $nbDemande = count($dataArray);
+          $nbLink    = ceil($nbDemande/$limit);
+
+          for ($i = 0; $i <$nbLink; $i++) {
+
+              $offset = $i*$limit;
+              $link   = $i+1;
+              echo '<a href="index.php?offset='.$offset.'">'.$link.'</a> ';
+          }
+      ?>
+
+        <p><input type="button" name="submit" value="Submit" /></p>
+
+        </form>
+
     </body>
 
 </html>
