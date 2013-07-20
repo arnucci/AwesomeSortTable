@@ -8,6 +8,16 @@
  */
 (function ($) {
 
+    // Default settings
+    var defaultsSetting = {
+        all:    "Select all",
+        cancel: "Cancel",
+        ok:     "OK",
+        sortAZ: "Sort A-Z",
+        sortZA: "Sort Z-A"
+    },
+
+
     $.fn.awesomeSortTable=function(options) {
 
     };

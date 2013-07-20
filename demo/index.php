@@ -283,6 +283,8 @@
         </form>
     
          <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+         <script src="../jquery.awesomeSortTable.js"></script>
+         <script src="../init.js"></script>
     </body>
 
 </html>
