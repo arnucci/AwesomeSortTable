@@ -40,6 +40,12 @@
 		    var popUp = initPopUp(cell);
 		    cell.addClass('selected');
                     displayPopup(cell, popUp);
+
+		    //click on cancel button
+		    $('#cancel').click(function() {
+
+			hidePopup();
+		    });
                 }
 	    });
         });
