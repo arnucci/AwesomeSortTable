@@ -21,20 +21,44 @@
 
         var settings = $.extend(defaultsSetting, options);
 
+	var test = initPopUp();
+
         return this.each(function() {
+
             $(this).append('<span><img src="fleche.png" /></span>');
 
-	    $(this).click(function() {
-		displayPopup($(this));
+	    var arrow = $(this).children('span');
+
+	    arrow.click(function() {
+
+                if ($('#menu').length != 0) {
+
+                    hidePopup(arrow, test);
+
+                } else {
+
+		    cellule = $(this).parent('td');
+                    displayPopup(cellule, test);
+                }
 	    });
         });
     };
 
-    function displayPopup(element) {
+    function initPopUp() {
 
 	popUp = '<div id="menu">Coucou</div>';
 
+	return popUp;
+    }
+
+    function displayPopup(element, popUp) {
+
 	element.append(popUp);
+    }
+
+    function hidePopup(element, popUp) {
+
+	$('#menu').remove();
     }
 
 })(jQuery);
