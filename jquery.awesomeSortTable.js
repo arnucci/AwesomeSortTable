@@ -12,17 +12,16 @@
 
         // Default settings
         var defaultsSetting = {
-            all:    "Select all",
-            cancel: "Cancel",
-            ok:     "OK",
-            sortAZ: "Sort A-Z",
-            sortZA: "Sort Z-A"
+	    all:    "Select all",
+	    cancel: "Cancel",
+	    ok:     "OK",
+	    sortAZ: "Sort A-Z",
+	    sortZA: "Sort Z-A"
         };
 
-        var settings = $.extend(defaultsSetting, options);
+        settings = $.extend(defaultsSetting, options);
 
-	
-        return this.each(function() {
+	return this.each(function() {
 
             $(this).append('<span><img src="fleche.png" /></span>');
 
@@ -30,16 +29,15 @@
 
 	    arrow.click(function() {
 
-		cell = $(this).parent('td');
-
-		popUp = initPopUp(cell);
+		var cell = $(this).parent('td');
 
                 if ($('#menu').length != 0) {
 		    
-                    hidePopup(popUp);
+                    hidePopup();
 
                 } else {
 
+		    var popUp = initPopUp(cell);
 		    cell.addClass('selected');
                     displayPopup(cell, popUp);
                 }
@@ -49,7 +47,11 @@
 
     function initPopUp(cell) {
 
-	popUp = '<div id="menu">';
+	var popUp = '<div id="menu">';
+
+	popUp += '<form action="#" method="post" id="myForm" style="width:'+cell.width()+'px;">';
+
+	popUp += '<input type="checkbox" value="tous" name="all" id="tous" /> <label for="tous">'+settings.all+'</label><br />';
 
 	for (value in getItemList(cell)) {
 
@@ -66,22 +68,22 @@
 	element.append(popUp);
     }
 
-    function hidePopup(popUp) {
+    function hidePopup() {
 
 	$('#menu').remove();
     }
 
     function getItemList(cell) {
 
-	indexColonne = cell.index() + 1;
+	var indexColonne = cell.index() + 1;
 
-	itemCellObj = cell.parents('table').find('td:nth-child('+indexColonne+'):gt(0)');
+	var itemCellObj = cell.parents('table').find('td:nth-child('+indexColonne+'):gt(0)');
 
-	itemListe = [];
+	var itemListe = [];
 
 	itemCellObj.each(function () {
 
-	    item = $(this).html();
+	    var item = $(this).html();
 
 	    if ($.inArray(item, itemListe) == -1) {
 
