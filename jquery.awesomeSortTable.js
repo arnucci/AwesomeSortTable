@@ -21,8 +21,7 @@
 
         var settings = $.extend(defaultsSetting, options);
 
-	var test = initPopUp();
-
+	
         return this.each(function() {
 
             $(this).append('<span><img src="fleche.png" /></span>');
@@ -31,23 +30,33 @@
 
 	    arrow.click(function() {
 
-                if ($('#menu').length != 0) {
+		cell = $(this).parent('td');
 
-                    hidePopup(arrow, test);
+		popUp = initPopUp(cell);
+
+                if ($('#menu').length != 0) {
+		    
+                    hidePopup(popUp);
 
                 } else {
 
-		    cell = $(this).parent('td');
 		    cell.addClass('selected');
-                    displayPopup(cell, test);
+                    displayPopup(cell, popUp);
                 }
 	    });
         });
     };
 
-    function initPopUp() {
+    function initPopUp(cell) {
 
-	popUp = '<div id="menu">Coucou</div>';
+	popUp = '<div id="menu">';
+
+	for (value in getItemList(cell)) {
+
+	    popUp += '<input type="checkbox" value="'+getItemList(cell)[value]+'" name="'+getItemList(cell)[value]+'" id="'+getItemList(cell)[value]+'" /><label for="'+getItemList(cell)[value]+'">'+getItemList(cell)[value]+'</label><br />';
+	}
+
+	popUp += '</div>';
 
 	return popUp;
     }
@@ -57,9 +66,30 @@
 	element.append(popUp);
     }
 
-    function hidePopup(element, popUp) {
+    function hidePopup(popUp) {
 
 	$('#menu').remove();
+    }
+
+    function getItemList(cell) {
+
+	indexColonne = cell.index() + 1;
+
+	itemCellObj = cell.parents('table').find('td:nth-child('+indexColonne+'):gt(0)');
+
+	itemListe = [];
+
+	itemCellObj.each(function () {
+
+	    item = $(this).html();
+
+	    if ($.inArray(item, itemListe) == -1) {
+
+		itemListe.push(item);
+	    }
+	});
+
+	return itemListe;
     }
 
 })(jQuery);
