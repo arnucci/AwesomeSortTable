@@ -14,7 +14,7 @@
 
         <h2>Simple usage</h2>
 
-        <table>
+        <table id="simple">
             <thead>
                 <tr>
                     <td>Logiciel</td>

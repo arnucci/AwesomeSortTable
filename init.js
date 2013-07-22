@@ -8,7 +8,7 @@
  * @copyright MIT License
  * @version 0.0.1
  */
-$('thead > tr > td').awesomeSortTable({
+$('#simple >thead > tr > td').awesomeSortTable({
     all:         "Tout sélectionner",   //label de la checkbox qui permet de tout sélectionner
     cancel:      "Annuler",             //label dubouton annuler
     ok:          "OK",                  //label du bouton OK

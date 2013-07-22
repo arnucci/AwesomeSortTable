@@ -43,7 +43,9 @@
 
 		    //sort A-Z
 		    $('#sortAZ').click(function() {
-			sortAZ(cell);
+			var itemList = sortAZ(cell);
+
+			displayTable(itemList, cell)
 			hidePopup();
 		    });
 
@@ -136,6 +138,22 @@
     function sortAZ(cell) {
 
 	return getAllItems(cell).sort();
+    }
+
+    function displayTable(itemList, cell) {
+
+	var indexColumn = cell.index() + 1;
+
+	for (var i = 0; i < itemList.length; i++) {
+
+	    $('.selected').closest('table').find('tr:gt(0) td:nth-child('+indexColumn+')').each(function() {
+
+		if (itemList[i] == $(this).html()) {
+					
+		    $('.selected').closest('table').append($(this).parent());	
+		}
+	    });
+	}
     }
 
 })(jQuery);
