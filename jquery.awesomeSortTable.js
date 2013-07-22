@@ -58,6 +58,12 @@
 	    popUp += '<input type="checkbox" value="'+getItemList(cell)[value]+'" name="'+getItemList(cell)[value]+'" id="'+getItemList(cell)[value]+'" /><label for="'+getItemList(cell)[value]+'">'+getItemList(cell)[value]+'</label><br />';
 	}
 
+	popUp += '<input type="button" id="ok" name="ok" value="'+settings.ok+'" />';
+
+	popUp += '<input type="button" id="cancel" name="cancel" value="'+settings.cancel+'" />'
+
+	popUp += '</form>';
+
 	popUp += '</div>';
 
 	return popUp;
