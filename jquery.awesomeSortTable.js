@@ -41,6 +41,12 @@
 		    cell.addClass('selected');
                     displayPopup(cell, popUp);
 
+		    //sort A-Z
+		    $('#sortAZ').click(function() {
+
+			hidePopup();
+		    });
+
 		    //click on cancel button
 		    $('#cancel').click(function() {
 
@@ -54,6 +60,8 @@
     function initPopUp(cell) {
 
 	var popUp = '<div id="menu">';
+
+	popUp += '<p id="sortAZ">'+settings.sortAZ+'</p>';
 
 	popUp += '<form action="#" method="post" id="myForm" style="width:'+cell.width()+'px;">';
 

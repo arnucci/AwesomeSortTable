@@ -21,3 +21,8 @@
   text-align:left;
   z-index:100;
 }
+
+#sortAZ, #sortZA
+{
+  cursor:default;
+}
