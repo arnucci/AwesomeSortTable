@@ -37,8 +37,9 @@
 
                 } else {
 
-		    cellule = $(this).parent('td');
-                    displayPopup(cellule, test);
+		    cell = $(this).parent('td');
+		    cell.addClass('selected');
+                    displayPopup(cell, test);
                 }
 	    });
         });

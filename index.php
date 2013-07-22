@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <title>Demos</title>
     <link href="style.css" type="text/css" rel="stylesheet" />
+      <link href="jquery.awesomeSortTable.css" type="text/css" rel="stylesheet" />
     </head>
  
     <body>
