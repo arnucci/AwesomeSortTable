@@ -23,7 +23,18 @@
 
         return this.each(function() {
             $(this).append('<span><img src="fleche.png" /></span>');
+
+	    $(this).click(function() {
+		displayPopup($(this));
+	    });
         });
     };
+
+    function displayPopup(element) {
+
+	popUp = '<div id="menu">Coucou</div>';
+
+	element.append(popUp);
+    }
 
 })(jQuery);
