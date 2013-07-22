@@ -43,7 +43,7 @@
 
 		    //sort A-Z
 		    $('#sortAZ').click(function() {
-
+			sortAZ(cell);
 			hidePopup();
 		    });
 
@@ -95,9 +95,9 @@
 
     function getItemList(cell) {
 
-	var indexColonne = cell.index() + 1;
+	var indexColumn = cell.index() + 1;
 
-	var itemCellObj = cell.parents('table').find('td:nth-child('+indexColonne+'):gt(0)');
+	var itemCellObj = cell.parents('table').find('td:nth-child('+indexColumn+'):gt(0)');
 
 	var itemListe = [];
 
@@ -112,6 +112,30 @@
 	});
 
 	return itemListe;
+    }
+
+    function getAllItems(cell) {
+
+	var indexColumn = cell.index() + 1;
+
+	var itemCellObj = cell.parents('table').find('td:nth-child('+indexColumn+'):gt(0)');
+
+	var allItems = [];
+
+	itemCellObj.each(function () {
+
+	    var item = $(this).html();
+
+	    allItems.push(item);
+	});
+
+	return allItems;
+    }
+
+
+    function sortAZ(cell) {
+
+	return getAllItems(cell).sort();
     }
 
 })(jQuery);
