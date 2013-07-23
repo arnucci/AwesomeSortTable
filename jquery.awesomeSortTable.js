@@ -65,6 +65,8 @@
 
 	popUp += '<p id="sortAZ">'+settings.sortAZ+'</p>';
 
+	popUp += '<p id="sortZA">'+settings.sortZA+'</p>';
+
 	popUp += '<form action="#" method="post" id="myForm" style="width:'+cell.width()+'px;">';
 
 	popUp += '<input type="checkbox" value="tous" name="all" id="tous" /> <label for="tous">'+settings.all+'</label><br />';
