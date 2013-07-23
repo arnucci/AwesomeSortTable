@@ -49,6 +49,14 @@
 			hidePopup();
 		    });
 
+		    //sort Z-A
+		    $('#sortZA').click(function() {
+			var itemList = sortZA(cell);
+
+			displayTable(itemList, cell)
+			hidePopup();
+		    });
+
 		    //click on cancel button
 		    $('#cancel').click(function() {
 
@@ -136,10 +144,16 @@
 	return allItems;
     }
 
-
     function sortAZ(cell) {
 
 	return getAllItems(cell).sort();
+    }
+
+    function sortZA(cell) {
+
+	var list = getAllItems(cell).sort();
+
+	return list.reverse();
     }
 
     function displayTable(itemList, cell) {
