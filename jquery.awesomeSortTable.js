@@ -77,7 +77,7 @@
 
 	popUp += '<form action="#" method="post" id="myForm" style="width:'+cell.width()+'px;">';
 
-	popUp += '<input type="checkbox" value="tous" name="all" id="tous" /> <label for="tous">'+settings.all+'</label><br />';
+	popUp += '<input type="checkbox" value="all" name="all" id="all" /> <label for="all">'+settings.all+'</label><br />';
 
 	for (value in getItemList(cell)) {
 
