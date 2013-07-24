@@ -98,6 +98,9 @@
     function displayPopup(element, popUp) {
 
 	element.append(popUp);
+
+	$('#all').attr('checked', 'true');
+
     }
 
     function hidePopup() {
