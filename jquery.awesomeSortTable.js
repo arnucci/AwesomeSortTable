@@ -8,24 +8,33 @@
  */
 (function ($) {
 
-    $.fn.awesomeSortTable=function(options) {
+    $.awesomeSortTable = function(element, options) {
 
-        // Default settings
-        var defaultsSetting = {
+	var defaults = {
+
 	    all:    "Select all",
 	    cancel: "Cancel",
 	    ok:     "OK",
 	    sortAZ: "Sort A-Z",
 	    sortZA: "Sort Z-A"
-        };
+	}
 
-        settings = $.extend(defaultsSetting, options);
 
-	return this.each(function() {
+	var plugin = this;
 
-            $(this).append('<span><img src="fleche.png" /></span>');
+	plugin.settings = {}
 
-	    var arrow = $(this).children('span');
+	var $element = $(element),
+	     element = element;
+
+	plugin.init = function() {
+
+	    plugin.settings = $.extend({}, defaults, options);
+
+	    $element.append('<span><img src="fleche.png" /></span>');
+
+
+	    var arrow = $element.children('span');
 
 	    arrow.click(function() {
 
@@ -64,72 +73,86 @@
 		    });
                 }
 	    });
-        });
-    };
-
-    function initPopUp(cell) {
-
-	var popUp = '<div id="menu">';
-
-	popUp += '<p id="sortAZ">'+settings.sortAZ+'</p>';
-
-	popUp += '<p id="sortZA">'+settings.sortZA+'</p>';
-
-	popUp += '<form action="#" method="post" id="myForm" style="width:'+cell.width()+'px;">';
-
-	popUp += '<input type="checkbox" value="all" name="all" id="all" /> <label for="all">'+settings.all+'</label><br />';
-
-	for (value in getItemList(cell)) {
-
-	    popUp += '<input type="checkbox" value="'+getItemList(cell)[value]+'" name="'+getItemList(cell)[value]+'" id="'+getItemList(cell)[value]+'" /><label for="'+getItemList(cell)[value]+'">'+getItemList(cell)[value]+'</label><br />';
 	}
 
-	popUp += '<input type="button" id="ok" name="ok" value="'+settings.ok+'" />';
+	var initPopUp = function(cell) {
 
-	popUp += '<input type="button" id="cancel" name="cancel" value="'+settings.cancel+'" />'
+	    var popUp = '<div id="menu">';
 
-	popUp += '</form>';
+	    popUp += '<p id="sortAZ">'+defaults.sortAZ+'</p>';
 
-	popUp += '</div>';
+	    popUp += '<p id="sortZA">'+defaults.sortZA+'</p>';
 
-	return popUp;
+	    popUp += '<form action="#" method="post" id="myForm" style="width:'+cell.width()+'px;">';
+
+	    popUp += '<input type="checkbox" value="all" name="all" id="all" /> <label for="all">'+defaults.all+'</label><br />';
+
+	    for (value in getItemList(cell)) {
+
+		popUp += '<input type="checkbox" value="'+getItemList(cell)[value]+'" name="'+getItemList(cell)[value]+'" id="'+getItemList(cell)[value]+'" /><label for="'+getItemList(cell)[value]+'">'+getItemList(cell)[value]+'</label><br />';
+	    }
+
+	    popUp += '<input type="button" id="ok" name="ok" value="'+defaults.ok+'" />';
+
+	    popUp += '<input type="button" id="cancel" name="cancel" value="'+defaults.cancel+'" />'
+
+	    popUp += '</form>';
+
+	    popUp += '</div>';
+
+	    return popUp;
+	};
+
+	var getItemList = function(cell) {
+
+	    var indexColumn = cell.index() + 1;
+
+	    var itemCellObj = cell.parents('table').find('td:nth-child('+indexColumn+'):gt(0)');
+
+	    var itemListe = [];
+
+	    itemCellObj.each(function () {
+
+		var item = $(this).html();
+
+		if ($.inArray(item, itemListe) == -1) {
+
+		    itemListe.push(item);
+		}
+	    });
+
+	    return itemListe;
+	};
+
+	plugin.init();
     }
 
-    function displayPopup(element, popUp) {
+    var displayPopup = function(el, popUp) {
 
-	element.append(popUp);
+	el.append(popUp);
 
 	$('#all').attr('checked', 'true');
 
     }
 
-    function hidePopup() {
+    var hidePopup = function() {
 
 	$('#menu').remove();
     }
 
-    function getItemList(cell) {
+    var sortAZ = function(cell) {
 
-	var indexColumn = cell.index() + 1;
-
-	var itemCellObj = cell.parents('table').find('td:nth-child('+indexColumn+'):gt(0)');
-
-	var itemListe = [];
-
-	itemCellObj.each(function () {
-
-	    var item = $(this).html();
-
-	    if ($.inArray(item, itemListe) == -1) {
-
-		itemListe.push(item);
-	    }
-	});
-
-	return itemListe;
+	return getAllItems(cell).sort();
     }
 
-    function getAllItems(cell) {
+    var sortZA = function(cell) {
+
+	var list = getAllItems(cell).sort();
+
+	return list.reverse();
+    }
+
+    var getAllItems = function(cell) {
 
 	var indexColumn = cell.index() + 1;
 
@@ -147,19 +170,7 @@
 	return allItems;
     }
 
-    function sortAZ(cell) {
-
-	return getAllItems(cell).sort();
-    }
-
-    function sortZA(cell) {
-
-	var list = getAllItems(cell).sort();
-
-	return list.reverse();
-    }
-
-    function displayTable(itemList, cell) {
+    var displayTable = function(itemList, cell) {
 
 	var indexColumn = cell.index() + 1;
 
@@ -175,4 +186,17 @@
 	}
     }
 
+    $.fn.awesomeSortTable = function(options) {
+
+	return this.each(function() {
+
+	    if (undefined == $(this).data('awesomeSortTable')) {
+
+		var plugin = new $.awesomeSortTable(this, options);
+
+	        $(this).data('awesomeSortTable', plugin);
+	    }
+
+	});
+    }
 })(jQuery);
